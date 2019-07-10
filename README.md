@@ -1,9 +1,12 @@
 ## Notice from HYJ
-1. This project nedd "config.js" file in the "src" folder(/src/config.js is needed)
+1. This project need "config.js" file in the "src" folder(/src/config.js is needed)
 
 2. The format of config.js file is like:
+
 const apiKey = "YOUR API_KEY"
+
 export default apiKey;
+
 
 3. need todo ( 1. Header decoration 2. 404 page )
 
