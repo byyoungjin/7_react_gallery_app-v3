@@ -4,7 +4,7 @@ import {BrowserRouter, Route, NavLink} from 'react-router-dom';
 import Gallery from './Gallery';
 
 
-const Nav = ({getPictures,pictures}) => {
+const Nav = () => {
   return (
     <nav className="main-nav">
       <ul>
