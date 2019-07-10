@@ -8,6 +8,7 @@ import Gallery from './component/Gallery';
 import Header from './component/Header';
 import Nav from './component/Nav';
 import SearchForm from './component/SearchForm';
+import NotFound from './component/NotFound';
 
 
 class App extends Component {
@@ -16,7 +17,8 @@ class App extends Component {
     catImages:[],
     dogImages:[],
     computerImages:[],
-    loading:true
+    loading:true,
+    searchTerm:""
   }
 
 
@@ -41,15 +43,6 @@ class App extends Component {
 
   }
 
-  setPictures = (query = "happy") => {
-    this.getPictures(query)
-    .then(res => this.setState(prev=>({
-      images:res,
-      loading:false
-    })))
-    .catch(error => console.log('Error fetching and parsing pictures',error))
-  }
-
   getPictures = (query = "dog") => {
     return fetch(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&text=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(res => res.json())
@@ -60,6 +53,16 @@ class App extends Component {
     .catch(error => console.log('Error fetching and parsing pictures',error))
   }
 
+  setPictures = (query = "happy") => {
+    this.getPictures(query)
+    .then(res => this.setState(prev=>({
+      images:res,
+      loading:false
+    })))
+    .catch(error => console.log('Error fetching and parsing pictures',error))
+  }
+
+
   render() {
     return (
       <Provider value={{
@@ -69,20 +72,25 @@ class App extends Component {
         computerImages:this.state.computerImages,
         actions:{
           setPictures:this.setPictures
-        }
+        },
+        searchTerm: this.state.searchTerm
       }}>
         <BrowserRouter>
           <div className="container">
               <Route path='/' component={Header}/>
               <Route path='/' component={SearchForm}/>
               <Nav />
-              <Switch>
-                <Route exact path="/" component={Gallery} />
-                <Route path="/cats" component={Gallery} />
-                <Route path="/dogs" component={Gallery} />
-                <Route path="/computers" component={Gallery} />
-                <Route path="/:search" component={Gallery} />
-              </Switch>
+              {
+                (this.state.loading)
+                ?
+                <p>Loading...</p>
+                :
+                <Switch>
+                  <Route exact path="/" component={Gallery} />
+                  <Route path="/:search" component={Gallery} />
+                  <Route compoent={NotFound} />
+                </Switch>
+              }
           </div>
         </BrowserRouter>
       </Provider>

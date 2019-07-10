@@ -11,8 +11,8 @@ const SearchForm = ({history}) => {
       {({actions}) => {
         const handleSubmit = (e) => {
           e.preventDefault();
+          history.push(`/${input.current.value}`); // getting histroy from props
           actions.setPictures(input.current.value); // getting actions from context
-          history.push(`/${input.current.value}`);  // getting histroy from props
           e.currentTarget.reset();
         }
         return (
