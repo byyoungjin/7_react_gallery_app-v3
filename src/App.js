@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import './App.css';
 import apiKey from './config.js';
+import {Provider} from './component/Context';
 
 import Gallery from './component/Gallery';
 import Header from './component/Header';
@@ -22,7 +23,7 @@ class App extends Component {
   componentDidMount() {
     this.setPictures();
 
-
+    //how to simplify this three function?
     this.getPictures("cats")
     .then(res => this.setState(prev=>({
       catImages:res,
@@ -40,7 +41,7 @@ class App extends Component {
 
   }
 
-  setPictures = (query = "dog") => {
+  setPictures = (query = "happy") => {
     this.getPictures(query)
     .then(res => this.setState(prev=>({
       images:res,
@@ -60,24 +61,37 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
-      <BrowserRouter>
-        <div className="container">
-            <SearchForm setPictures={this.setPictures}/>
-            <Nav getPictures={this.getPictures} images={this.state.images}/>
-            <Switch>
-              {/* <Route exact path="/" render={()=><Gallery images={this.state.images} />} /> */}
-              {/* <Route path="/cats" render={()=><Gallery images={this.state.catImages} />} />
-              <Route path="/dogs" render={()=><Gallery images={this.state.dogImages} />} />
-              <Route path="/computers" render={()=><Gallery images={this.state.computerImages} />} /> */}
-              <Route path="/:search" render={()=><Gallery images={this.state.images} />} />
-            </Switch>
-        </div>
-      </BrowserRouter>
-
+      <Provider value={{
+        images: this.state.images,
+        catImages:this.state.catImages,
+        dogImages:this.state.dogImages,
+        computerImages:this.state.computerImages,
+        actions:{
+          setPictures:this.setPictures
+        }
+      }}>
+        <BrowserRouter>
+          <div className="container">
+              <Route path='/' component={Header}/>
+              <Route path='/' component={SearchForm}/>
+              <Nav />
+              <Switch>
+                <Route exact path="/" component={Gallery} />
+                <Route path="/cats" component={Gallery} />
+                <Route path="/dogs" component={Gallery} />
+                <Route path="/computers" component={Gallery} />
+                <Route path="/:search" component={Gallery} />
+              </Switch>
+          </div>
+        </BrowserRouter>
+      </Provider>
     );
   }
 }
-
+// problem, using props and  not using match three is no way to make url by search term
+//1. use Provider & Consummer not to use props
+//2. not using props, I can use match and history by using <Route ... component={} />
+//
+//
 export default App;
