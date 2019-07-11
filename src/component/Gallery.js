@@ -1,30 +1,32 @@
 import React from 'react';
 import {Consumer} from './Context';
+import {Redirect} from 'react-router-dom';
 
 import GalleryItem from './GalleryItem';
-import NotFound from './NotFound';
+import NoResult from './NoResult';
 
 const Gallery = ({match}) => {
   const searchTerm =match.params.search;
   return (
     <Consumer>
       {context => {
-        // need to make conditionals lookig match.path => choosing images
+        // Conditionals lookig match.path => choosing images
         let displayImages=[];
-        switch(match.params.search){
-          case "cats":
+        switch(match.url){
+          case "/cats":
             displayImages=context.catImages;
           break;
-          case "dogs":
+          case "/dogs":
             displayImages=context.dogImages;
           break;
-          case "computers":
+          case "/computers":
             displayImages=context.computerImages;
           break;
           default:
             displayImages=context.images;
         }
         return (
+          //Check if there are images to render. If not, render <NoResult /> 
           (displayImages.length>0)
           ?
           <div className="photo-container">
@@ -41,7 +43,7 @@ const Gallery = ({match}) => {
               )}
             </ul>
           </div>
-          : <NotFound />
+          : <NoResult />
 
         )
       }}

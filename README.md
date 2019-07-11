@@ -8,9 +8,8 @@ const apiKey = "YOUR API_KEY"
 export default apiKey;
 
 
-3. need todo ( 1. Header decoration 2. 404 page )
-
-
+3. Needed to find way to change route including search term when user submit on search bar ==>  Used Provider & Consumer not to use props => not using props, I could use match and history by using <Route ... component={} />
+  (I reallized there is WithRouter later.. )
 
 
 

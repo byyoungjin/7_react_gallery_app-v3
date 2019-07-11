@@ -3,7 +3,7 @@ import {BrowserRouter, Route, NavLink} from 'react-router-dom';
 
 import Gallery from './Gallery';
 
-
+//Nav for 3 buttons
 const Nav = () => {
   return (
     <nav className="main-nav">
