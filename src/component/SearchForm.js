@@ -11,9 +11,10 @@ const SearchForm = ({history}) => {
       {({actions}) => {
         const handleSubmit = (e) => {
           e.preventDefault();
-          history.push(`/${input.current.value}`); // getting histroy from props
-          actions.setPictures(input.current.value); // getting actions from context
-          e.currentTarget.reset();
+          actions.setLoading(); // set load state true => show loading paragraph
+          history.push(`/Search/${input.current.value}`); //make programatic routing by history
+          actions.setPictures(input.current.value); // set state's image which would be loaded by input value query
+          e.currentTarget.reset(); // reset input element's value 
         }
         return (
           <form className="search-form" onSubmit={handleSubmit} >

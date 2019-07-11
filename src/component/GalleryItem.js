@@ -3,7 +3,7 @@ import React from 'react';
 
 const GalleryItem = ({img}) => {
  return(
-   <li>
+   <li className="gallery-item">
      <img src={img} alt='img' />
    </li>
  )

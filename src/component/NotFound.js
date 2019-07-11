@@ -1,10 +1,10 @@
 import React from 'react';
 
-const NotFound = () => {
+const NotFound = ({location}) => {
   return (
     <li className="not-found">
-      <h3>No Results Found</h3>
-      <p>You search did not return any results. Please try again.</p>
+      <h3>Not Found</h3>
+      <p>No page for url: {location.pathname}</p>
     </li>
   )
 }
