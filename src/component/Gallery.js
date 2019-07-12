@@ -1,6 +1,5 @@
 import React from 'react';
 import {Consumer} from './Context';
-import {Redirect} from 'react-router-dom';
 
 import GalleryItem from './GalleryItem';
 import NoResult from './NoResult';
@@ -25,8 +24,9 @@ const Gallery = ({match}) => {
           default:
             displayImages=context.images;
         }
+        console.log(displayImages.length);
         return (
-          //Check if there are images to render. If not, render <NoResult /> 
+          //Check if there are images to render. If not, render <NoResult />
           (displayImages.length>0)
           ?
           <div className="photo-container">

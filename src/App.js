@@ -58,6 +58,8 @@ class App extends Component {
 
   // Get object from getPictures() and set it on state
   setPictures = (query = "happy") => {
+    //initalize loading state to true
+    this.setLoading();
     this.getPictures(query)
     .then(res => this.setState(prev=>({
       images:res,
@@ -80,8 +82,7 @@ class App extends Component {
         dogImages:this.state.dogImages,
         computerImages:this.state.computerImages,
         actions:{
-          setPictures:this.setPictures,
-          setLoading:this.setLoading
+          setPictures:this.setPictures
         },
         searchTerm: this.state.searchTerm
       }}>
@@ -90,7 +91,7 @@ class App extends Component {
               <Route path='/' component={Header}/>
               <Route path='/' component={SearchForm}/>
               <Nav />
-              { // Check the loading state and render the page if the loading state is false 
+              { // Check the loading state and render the page if the loading state is false
                 (this.state.loading)
                 ?
                 <p>Loading...</p>

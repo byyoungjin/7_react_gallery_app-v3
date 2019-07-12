@@ -1,5 +1,4 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
 import {Consumer} from './Context';
 
 
@@ -11,10 +10,9 @@ const SearchForm = ({history}) => {
       {({actions}) => {
         const handleSubmit = (e) => {
           e.preventDefault();
-          actions.setLoading(); // set load state true => show loading paragraph
           history.push(`/Search/${input.current.value}`); //make programatic routing by history
           actions.setPictures(input.current.value); // set state's image which would be loaded by input value query
-          e.currentTarget.reset(); // reset input element's value 
+          e.currentTarget.reset(); // reset input element's value
         }
         return (
           <form className="search-form" onSubmit={handleSubmit} >
